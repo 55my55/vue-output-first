@@ -2,13 +2,9 @@
 import AddTodo from '../Organisms/AddTodo.vue'
 import TodoList from '../Organisms/TodoList.vue'
 import InputForm from '../Atoms/InputForm.vue'
-import { useTodoTemplate } from '../../composables/useTodoTemplate'
+import { inject } from 'vue'
 
-const {showTodoList,
-    addInputValue,
-    searchKeyword,
-    handleAddTodo,
-    handleDeleteTodo} = useTodoTemplate()
+const searchKeyword = inject('searchKeyword')
 
 
 </script>
@@ -19,7 +15,7 @@ const {showTodoList,
   </div>
   <!-- Todo 追加エリア -->
   <section class="common">
-    <AddTodo v-model:addInputValue="addInputValue" :onAddTodo="handleAddTodo" />
+    <AddTodo />
   </section>
   <!-- Todo 検索エリア -->
   <section class="common">
@@ -27,7 +23,7 @@ const {showTodoList,
   </section>
   <!-- Todo 一覧表示エリア -->
   <section class="common">
-    <TodoList :todoList="showTodoList" @onDeleteTodo="handleDeleteTodo" />
+    <TodoList />
   </section>
 </template>
 

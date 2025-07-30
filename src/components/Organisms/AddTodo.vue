@@ -1,28 +1,19 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { inject } from 'vue'
 import InputForm from '../Atoms/InputForm.vue'
 
-defineProps({
-  addInputValue: {
-    type: String,
-    required: true
-  },
-  onAddTodo: {
-    type: Function,
-    required: true
-  }
-})
-
 defineEmits(['update:modelValue'])
+
+const addInputValue = inject('addInputValue')
+const handleAddTodo = inject('handleAddTodo')
 </script>
 
 <template>
   <h2 class="subTitle">ADD TODO</h2>
   <InputForm
-    :modelValue="addInputValue"
+    v-model="addInputValue"
     :placeholder="`Please input todo`"
-    @update:modelValue="$emit('update:addInputValue', $event)"
-    :onKeydown="onAddTodo"
+    :onKeydown="handleAddTodo"
   />
 </template>
 

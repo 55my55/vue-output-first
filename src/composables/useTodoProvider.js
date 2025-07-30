@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { INIT_TODO_LIST, INIT_UNIQUE_ID } from '../constants/data'
 
-export const useTodoTemplate = () => {
+export const useTodoProvider = () => {
 const originTodoList = ref(INIT_TODO_LIST)
 const addInputValue = ref('')
 const uniqueId = ref(INIT_UNIQUE_ID)
