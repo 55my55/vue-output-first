@@ -1,7 +1,9 @@
 <script setup>
-import Todo from './pages/Todo.vue'
+import TodoProvider from './providers/TodoProvider.vue'
 </script>
 
 <template>
-  <Todo />
+    <TodoProvider>
+    <router-view />
+  </TodoProvider>
 </template>

@@ -3,14 +3,28 @@ import { inject } from 'vue'
 
 const showTodoList = inject('showTodoList')
 const handleDeleteTodo = inject('handleDeleteTodo')
-
 </script>
 
 <template>
   <ul class="list">
     <li v-for="(todo, index) in showTodoList" :key="index" class="todo">
       <span class="task">{{ todo.title }}</span>
-      <font-awesome-icon class="far" icon="fa-trash" @click="handleDeleteTodo(todo.id, todo.title)" />
+      <div class="area">
+        <div class="far">
+          <router-link :to="{ name: 'detail', params: { id: todo.id } }">
+            <font-awesome-icon class="far" icon="fa-circle-info" />
+          </router-link>
+        </div>
+        <div class="far">
+          <router-link :to="{ name: 'edit', params: { id: todo.id } }">
+            <font-awesome-icon class="far" icon="fa-pen-to-square" />
+          </router-link>
+        </div>
+
+        <div class="far">
+          <font-awesome-icon class="far" icon="fa-trash" @click="handleDeleteTodo(todo.id, todo.title)" />
+        </div>
+      </div>
     </li>
   </ul>
 </template>
@@ -22,6 +36,9 @@ const handleDeleteTodo = inject('handleDeleteTodo')
 
 .todo {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
   list-style: none;
   line-height: 1.5;
@@ -42,13 +59,19 @@ const handleDeleteTodo = inject('handleDeleteTodo')
   color: #fff;
 }
 
-.far {
-  cursor: pointer;
-  position: absolute;
-  top: 24px;
-  right: 10px;
-  width: 30px;
+.area {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  width: 130px;
   height: 30px;
+}
+
+.far {
+  display: block;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
   color: #ff9900;
 }
 </style>
