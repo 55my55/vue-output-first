@@ -1,36 +1,40 @@
-<script setup>
-import { defineProps, defineEmits } from 'vue'
+<script setup lang="ts">
+type Props = {
+  disabled?: boolean;
+  modelValue?: string;
+  name: string;
+  placeholder?: string;
+  onKeydown?: (event: KeyboardEvent) => void;
+};
 
-defineProps({
-  modelValue: {
-    type: String,
-    required: true
-  },
-  placeholder: {
-    type: String
-  },
-  onKeydown: {
-    type: Function
-  }
-})
+type Emits = {
+  (e: "update:modelValue", value: string): void;
+};
 
-defineEmits(['update:modelValue'])
+const { disabled, modelValue, name, placeholder, onKeydown } =
+  defineProps<Props>();
+
+defineEmits<Emits>();
 </script>
 
 <template>
   <input
     type="text"
     class="input"
+    :disabled="disabled"
+    :name="name"
     :placeholder="placeholder"
     :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="
+      $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+    "
     @keydown="onKeydown"
-  />
+  >
 </template>
 
 <style scoped>
 .input {
-  color: white;
+  color: #fff;
   border: none;
   background: rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -38,8 +42,12 @@ defineEmits(['update:modelValue'])
   padding: 10px;
   box-sizing: border-box;
   font-size: 20px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   border-radius: 5px;
+}
+
+.input:disabled {
+  color: #c0c0c0;
 }
 
 .input::placeholder {

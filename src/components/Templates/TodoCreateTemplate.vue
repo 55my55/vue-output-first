@@ -1,35 +1,53 @@
-<script setup>
-import { inject } from 'vue'
-import { useRouter } from 'vue-router'
-import BaseLayout from '../Organisms/BaseLayout.vue'
-import InputForm from '../Atoms/InputForm.vue'
-import TextArea from '../Atoms/TextArea.vue'
-import CommonButton from '../Atoms/CommonButton.vue'
-import { NAVIGATION_PATH } from '../../constants/navigation'
+<script setup lang="ts">
+import { inject } from "vue";
+import { useRouter } from "vue-router";
+import BaseLayout from "../Organisms/BaseLayout.vue";
+import InputForm from "../Atoms/InputForm.vue";
+import TextArea from "../Atoms/TextArea.vue";
+import CommonButton from "../Atoms/CommonButton.vue";
+import { NAVIGATION_PATH } from "../../constants/navigation";
+import { handleAddTodoInjectionKey } from "../../providers/TodoProviderInjectionKey";
 
-const router = useRouter()
+const router = useRouter();
 
-const handleAddTodo = inject('handleAddTodo')
+const handleAddTodo = inject(handleAddTodoInjectionKey);
 
-const handleSubmitAddTodo = (e) => {
-  e.preventDefault()
-  const formElements = e.target.elements
-  handleAddTodo(formElements.title.value, formElements.content.value)
-  router.push(`${NAVIGATION_PATH.TOP}`)
-}
+const handleSubmitAddTodo = (e: Event) => {
+  e.preventDefault();
+
+  if (!handleAddTodo) return;
+  const formElements = (e.target as HTMLFormElement).elements;
+  const title = (formElements.namedItem("title") as HTMLInputElement).value;
+  const content = (formElements.namedItem("content") as HTMLTextAreaElement)
+    .value;
+  handleAddTodo(title, content);
+  router.push(`${NAVIGATION_PATH.TOP}`);
+};
 </script>
 
 <template>
   <BaseLayout title="Create Todo">
-    <form class="container" @submit.prevent="handleSubmitAddTodo">
+    <form
+      class="container"
+      @submit.prevent="handleSubmitAddTodo"
+    >
       <div class="area">
-        <InputForm name="title" placeholder="Title" />
+        <InputForm
+          name="title"
+          placeholder="Title"
+        />
       </div>
       <div class="area">
-        <TextArea name="content" placeholder="Content" />
+        <TextArea
+          name="content"
+          placeholder="Content"
+        />
       </div>
       <div class="area">
-        <CommonButton type="submit" label="Create" />
+        <CommonButton
+          type="submit"
+          label="Create"
+        />
       </div>
     </form>
   </BaseLayout>

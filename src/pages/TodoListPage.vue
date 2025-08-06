@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TodoTemplate from '../components/Templates/TodoListTemplate.vue'
 </script>
 

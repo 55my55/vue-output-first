@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import NavigationLink from '../Atoms/NavigationLink.vue'
 import { NAVIGATION_PATH } from '../../constants/navigation'
 

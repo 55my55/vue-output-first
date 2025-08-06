@@ -1,23 +1,17 @@
-<script setup>
-defineProps({
-  label: {
-    type: String,
-    default: 'Button'
-  },
-  type: {
-    type: String,
-    default: 'button'
-  },
-  onClick: {
-    type: Function,
-    default: () => () => {}
-  }
-})
+<script setup lang="ts">
+const props = defineProps<{
+  label?: string
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: () => void
+}>()
+
+const buttonType = props.type ?? 'button'
+const handleClick = props.onClick ?? (() => {})
 </script>
 
 <template>
-  <button className="button" :type="type" @click="onClick">
-    {{ label }}
+  <button class="button" :type="buttonType" @click="handleClick">
+    {{ props.label ?? 'Button' }}
   </button>
 </template>
 

@@ -1,5 +1,5 @@
-<script setup>
-import TodoEditTemplate from '../components/Templates/TodoEditTemplate.vue'
+<script setup lang="ts">
+import TodoEditTemplate from '../components/Templates/TodoEditTemplate.vue';
 </script>
 
 <template>

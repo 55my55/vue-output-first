@@ -1,14 +1,10 @@
-<script setup>
-defineProps({
-  title: {
-    type: String,
-    required: true
-  },
-  path: {
-    type: String,
-    required: true
-  }
-})
+<script setup lang="ts">
+type Props = {
+  title: string;
+  path: string;
+};
+
+const { title, path } = defineProps<Props>();
 </script>
 
 <template>

@@ -1,19 +1,26 @@
-<script setup>
-import BaseLayout from '../Organisms/BaseLayout.vue'
-import TodoList from '../Organisms/TodoList.vue'
-import InputForm from '../Atoms/InputForm.vue'
-import { inject } from 'vue'
+<script setup lang="ts">
+import { inject } from "vue";
+import BaseLayout from "../Organisms/BaseLayout.vue";
+import TodoList from "../Organisms/TodoList.vue";
+import InputForm from "../Atoms/InputForm.vue";
 
-const searchKeyword = inject('searchKeyword')
+import { searchKeywordInjectionKey } from "../../providers/TodoProviderInjectionKey";
 
-
+const searchKeyword = inject(searchKeywordInjectionKey);
 </script>
 
 <template>
   <BaseLayout title="TodoList">
     <div className="container">
-      <section class="area">
-        <InputForm v-model="searchKeyword" :placeholder="`Search Keyword`" />
+      <section
+        v-if="searchKeyword !== undefined"
+        class="area"
+      >
+        <InputForm
+          v-model="searchKeyword"
+          :placeholder="`Search Keyword`"
+          name="search"
+        />
       </section>
       <!-- Todo 一覧表示エリア -->
       <section class="area">
@@ -28,6 +35,7 @@ const searchKeyword = inject('searchKeyword')
   width: 80%;
   margin: 40px auto;
 }
+
 .area {
   margin-top: 40px;
 }

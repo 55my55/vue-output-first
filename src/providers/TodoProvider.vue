@@ -1,15 +1,30 @@
-<script setup>
-import { provide } from 'vue'
-import { useTodoProvider } from '../composables/useTodoProvider'
+<script setup lang="ts">
+import { provide } from "vue";
+import { useTodoProvider } from "../composables/useTodoProvider";
+import {
+  originTodoListInjectionKey,
+  showTodoListInjectionKey,
+  searchKeywordInjectionKey,
+  handleAddTodoInjectionKey,
+  handleUpdateTodoInjectionKey,
+  handleDeleteTodoInjectionKey,
+} from "./TodoProviderInjectionKey";
 
-const { originTodoList, showTodoList, searchKeyword, addInputValue, handleAddTodo, handleDeleteTodo } = useTodoProvider()
+const {
+  originTodoList,
+  showTodoList,
+  searchKeyword,
+  handleAddTodo,
+  handleUpdateTodo,
+  handleDeleteTodo,
+} = useTodoProvider();
 
-provide('originTodoList', originTodoList)
-provide('showTodoList', showTodoList)
-provide('searchKeyword', searchKeyword)
-provide('addInputValue', addInputValue)
-provide('handleAddTodo', handleAddTodo)
-provide('handleDeleteTodo', handleDeleteTodo)
+provide(originTodoListInjectionKey, originTodoList);
+provide(showTodoListInjectionKey, showTodoList);
+provide(searchKeywordInjectionKey, searchKeyword);
+provide(handleAddTodoInjectionKey, handleAddTodo);
+provide(handleUpdateTodoInjectionKey, handleUpdateTodo);
+provide(handleDeleteTodoInjectionKey, handleDeleteTodo);
 </script>
 
 <template>

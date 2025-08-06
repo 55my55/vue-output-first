@@ -1,28 +1,51 @@
-<script setup>
-import { inject } from 'vue'
+<script setup lang="ts">
+import { inject } from "vue";
+import {
+  showTodoListInjectionKey,
+  handleDeleteTodoInjectionKey,
+} from "../../providers/TodoProviderInjectionKey";
 
-const showTodoList = inject('showTodoList')
-const handleDeleteTodo = inject('handleDeleteTodo')
+const showTodoList = inject(showTodoListInjectionKey);
+const handleDeleteTodo = inject(handleDeleteTodoInjectionKey);
+
+const handleDelete = (id: string, title: string) => {
+  if (!handleDeleteTodo) return;
+  handleDeleteTodo(id, title);
+};
 </script>
 
 <template>
   <ul class="list">
-    <li v-for="(todo, index) in showTodoList" :key="index" class="todo">
+    <li
+      v-for="(todo, index) in showTodoList"
+      :key="index"
+      class="todo"
+    >
       <span class="task">{{ todo.title }}</span>
       <div class="area">
         <div class="far">
           <router-link :to="{ name: 'detail', params: { id: todo.id } }">
-            <font-awesome-icon class="far" icon="fa-circle-info" />
+            <font-awesome-icon
+              class="far"
+              icon="fa-circle-info"
+            />
           </router-link>
         </div>
         <div class="far">
           <router-link :to="{ name: 'edit', params: { id: todo.id } }">
-            <font-awesome-icon class="far" icon="fa-pen-to-square" />
+            <font-awesome-icon
+              class="far"
+              icon="fa-pen-to-square"
+            />
           </router-link>
         </div>
 
         <div class="far">
-          <font-awesome-icon class="far" icon="fa-trash" @click="handleDeleteTodo(todo.id, todo.title)" />
+          <font-awesome-icon
+            class="far"
+            icon="fa-trash"
+            @click="handleDelete(String(todo.id), todo.title)"
+          />
         </div>
       </div>
     </li>
@@ -55,7 +78,7 @@ const handleDeleteTodo = inject('handleDeleteTodo')
   padding-top: 8px;
   padding-left: 10px;
   font-size: 24px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   color: #fff;
 }
 
